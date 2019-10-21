@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Table } from 'react-bootstrap';
+import Detail from './Detail';
 
 class List extends Component {
     state = {
@@ -24,6 +25,14 @@ class List extends Component {
                 <td>{venue.location.zipcode}</td>
                 <td>{venue.location.adress}</td>
                 <td>{venue.dates.startdate ? venue.dates.startdate : null}</td>
+                <td>
+                    <Detail
+                        title={venue.title}
+                        urls={venue.urls}
+                        location={venue.location}
+                        media={venue.media}
+                    />
+                </td>
             </tr>
         );
 
@@ -36,6 +45,7 @@ class List extends Component {
                         <th>Postcode</th>
                         <th>Address</th>
                         <th>Start Year</th>
+                        <th>Tools</th>
                     </tr>
                 </thead>
                 <tbody>
