@@ -14,6 +14,7 @@
     "react-bootstrap-multiselect": "^2.4.1",
     "react-dom": "^16.8.6",
     "react-filtered-multiselect": "^0.5.1",
+    "react-search-input": "^0.11.3",
     "react-tokeninput": "^2.5.0",
     "sass-loader": "^7.1.0"
   },

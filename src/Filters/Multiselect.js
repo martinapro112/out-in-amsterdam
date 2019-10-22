@@ -49,7 +49,7 @@ class Multiselect extends Component {
     render() {
         return (
             <div className="filter">
-                <FontAwesomeIcon icon={faFilter} onClick={this.handleShow} />
+                <FontAwesomeIcon icon={faFilter} onClick={this.handleShow} color={this.state.selected.length > 0 ? 'black' : 'lightgrey'} />
     
                 <Modal show={this.state.showFilter} onHide={this.handleHide}>
                     <Modal.Header closeButton>

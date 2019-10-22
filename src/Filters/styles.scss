@@ -2,11 +2,15 @@
     cursor: pointer;
     display: inline;
 
+    &.text {
+        display: block;
+    }
+
     .selected {
         margin-bottom: .25rem;
     }
 
-    .FilteredMultiSelect__filter, .FilteredMultiSelect__select {
+    .FilteredMultiSelect__filter, .FilteredMultiSelect__select, input {
         display: block;
         width: 100%;
         padding: .375rem .75rem;

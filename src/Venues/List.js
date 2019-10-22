@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Table } from 'react-bootstrap';
 import Detail from './Detail';
 import Multiselect from '../Filters/Multiselect';
+import Text from '../Filters/Text';
 
 class List extends Component {
     state = {
@@ -9,7 +10,8 @@ class List extends Component {
         cities: [],
         filterCity: [],
         postcodes: [],
-        filterPostcode: []
+        filterPostcode: [],
+        filterName: ''
     }
 
     componentDidMount() {
@@ -42,9 +44,13 @@ class List extends Component {
         this.setState({ filterPostcode: postcode });
     }
 
+    handleFilterName = (name) => {
+        this.setState({ filterName: name });
+    }
+
     render() {
         let filtered = [];
-        
+
         /*
         if (this.state.filterCity && this.state.filterCity.length > 0) {
             filtered = [];
@@ -83,6 +89,12 @@ class List extends Component {
                 }
             }
 
+            if (this.state.filterName && this.state.filterName.length !== '') {
+                if (!venue.title.toUpperCase().includes(this.state.filterName.toUpperCase())) {
+                    addVenue = false;
+                }
+            }
+
             if (addVenue) {
                 filtered.push(venue);
             }
@@ -110,7 +122,10 @@ class List extends Component {
             <Table striped bordered hover size="sm">
                 <thead>
                     <tr>
-                        <th>Name</th>
+                        <th>
+                            Name
+                            <Text setFilter={this.handleFilterName} />
+                        </th>
                         <th>
                             City
                             <Multiselect
