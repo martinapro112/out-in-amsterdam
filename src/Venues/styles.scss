@@ -3,6 +3,43 @@
     text-align: center;
 }
 
-.venues {
+.content {
     text-align: left;
+    height: 70vh;
+    max-height: 70vh;
+    width: 100%;
+    overflow: scroll;
+
+    &.hide {
+        display: none;
+    }
+
+    &.show {
+        display: block;
+    }
+}
+
+.marker {
+    transition: all .2s ease-in-out;
+    z-index: 1;
+
+    &:hover {
+        transform: scale(4);
+        margin-left: -0.6rem;
+        margin-top: -2.5rem;
+        z-index: 2;
+    }
+
+    .map {
+        margin-top: -1.2rem;
+        margin-left: 0.2rem;
+        cursor: pointer;
+    }
+
+    .marker-text {
+        background-color: white;
+        display: block;
+        width: fit-content;
+        text-align: left;
+    }
 }

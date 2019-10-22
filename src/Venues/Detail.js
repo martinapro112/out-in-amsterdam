@@ -4,8 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInfoCircle, faMapMarker } from '@fortawesome/free-solid-svg-icons';
 import GoogleMapReact from 'google-map-react';
 
-const AnyReactComponent = ({ text }) => <div>{text}</div>;
-
 class Detail extends Component {
     state = {
         show: false,
@@ -40,7 +38,7 @@ class Detail extends Component {
         );
 
         return (
-            <div className="tools">
+            <div className={'tools ' + (this.props.map ? 'map' : null)}>
                 <FontAwesomeIcon icon={faInfoCircle} onClick={this.handleShow} />
         
                 <Modal show={this.state.show} onHide={this.handleHide}>
@@ -87,10 +85,9 @@ class Detail extends Component {
                                                 <FontAwesomeIcon
                                                     icon={faMapMarker}
                                                     size="3x"
-                                                    color="#17a2b8"
+                                                    color="#28a745"
                                                     lat={this.props.location.latitude.replace(',', '.')}
                                                     lng={this.props.location.longitude.replace(',', '.')}
-                                                    text={this.props.title}
                                                 />
                                             </GoogleMapReact>
                                         </div>

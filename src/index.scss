@@ -4,6 +4,20 @@ body {
     font-family: sans-serif;
 }
 
+.switch {
+    position: absolute;
+    z-index: 3;
+    background-color: black;
+    border-radius: 50%;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+    height: 6rem;
+    margin: 4rem;
+    padding: 1.5rem;
+    overflow: visible;
+}
+
 @import 'App.scss';
 @import 'Venues/styles.scss';
 @import 'Filters/styles.scss';

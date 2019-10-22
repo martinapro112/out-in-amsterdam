@@ -6,6 +6,7 @@ import Detail from './Detail';
 import Multiselect from '../Filters/Multiselect';
 import Text from '../Filters/Text';
 import Dateselect from '../Filters/Dateselect';
+import Map from './Map';
 
 class List extends Component {
     state = {
@@ -148,48 +149,89 @@ class List extends Component {
                         urls={venue.urls}
                         location={venue.location}
                         media={venue.media}
+                        map={this.props.map}
                     />
                 </td>
             </tr>
         );
 
-        return (
-            <Table striped bordered hover size="sm" className="venues">
-                <thead>
-                    <tr>
-                        <th>
-                            Name
-                            <Text setFilter={this.handleFilterName} />
-                        </th>
-                        <th>
-                            City
-                            <Multiselect
-                                setFilter={this.handleFilterCity}
-                                values={this.state.cities}
-                                title="Filter by City"
-                            />
-                        </th>
-                        <th>
-                            Postcode
-                            <Multiselect
-                                setFilter={this.handleFilterPostcode}
-                                values={this.state.postcodes}
-                                title="Filter by Postcode"
-                            />
-                        </th>
-                        <th>Address</th>
-                        <th>
-                            Start Date
-                            <Dateselect setFilterFrom={this.handleFilterFrom} setFilterTo={this.handleFilterTo} />
-                        </th>
-                        <th>Tools</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {items}
-                </tbody>
-            </Table>
-        );
+        if (this.props.map) {
+            return (
+                <div>
+                    <Table striped bordered hover size="sm">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Name
+                                    <Text setFilter={this.handleFilterName} />
+                                </th>
+                                <th>
+                                    City
+                                    <Multiselect
+                                        setFilter={this.handleFilterCity}
+                                        values={this.state.cities}
+                                        title="Filter by City"
+                                    />
+                                </th>
+                                <th>
+                                    Postcode
+                                    <Multiselect
+                                        setFilter={this.handleFilterPostcode}
+                                        values={this.state.postcodes}
+                                        title="Filter by Postcode"
+                                    />
+                                </th>
+                                <th>
+                                    Start Date
+                                    <Dateselect setFilterFrom={this.handleFilterFrom} setFilterTo={this.handleFilterTo} />
+                                </th>
+                            </tr>
+                        </thead>
+                    </Table>
+                    <Map venues={filtered} showName={this.state.filterName} />
+                </div>
+            );
+        } else {
+            return (
+                <div className="content">
+                    <Table striped bordered hover size="sm">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Name
+                                    <Text setFilter={this.handleFilterName} />
+                                </th>
+                                <th>
+                                    City
+                                    <Multiselect
+                                        setFilter={this.handleFilterCity}
+                                        values={this.state.cities}
+                                        title="Filter by City"
+                                    />
+                                </th>
+                                <th>
+                                    Postcode
+                                    <Multiselect
+                                        setFilter={this.handleFilterPostcode}
+                                        values={this.state.postcodes}
+                                        title="Filter by Postcode"
+                                    />
+                                </th>
+                                <th>Address</th>
+                                <th>
+                                    Start Date
+                                    <Dateselect setFilterFrom={this.handleFilterFrom} setFilterTo={this.handleFilterTo} />
+                                </th>
+                                <th>Tools</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {items}
+                        </tbody>
+                    </Table>
+                </div>
+            );
+        }
     }
 }
 
