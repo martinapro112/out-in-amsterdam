@@ -1,11 +1,19 @@
 import React, { Component } from 'react';
 import { Button, Modal, Card, ListGroup, Carousel } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import { faInfoCircle, faMapMarker } from '@fortawesome/free-solid-svg-icons';
+import GoogleMapReact from 'google-map-react';
+
+const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
 class Detail extends Component {
     state = {
-        show: false
+        show: false,
+        center: {
+            lat: 52.370216,
+            lng: 4.895168
+        },
+        zoom: 9
     }
 
     handleShow = () => {
@@ -26,7 +34,7 @@ class Detail extends Component {
                 <img
                     className="d-block w-100"
                     src={image.url}
-                    alt=""
+                    alt="venue"
                 />
             </Carousel.Item>
         );
@@ -69,8 +77,23 @@ class Detail extends Component {
                                 <Card.Body>
                                     <Card.Title>Coordinates</Card.Title>
                                     <Card.Text>
-                                    <div>Latitude: {this.props.location.latitude}</div>
-                                    <div>Longitude: {this.props.location.longitude}</div>
+                                        <div>Latitude: {this.props.location.latitude}, Longitude: {this.props.location.longitude}</div>
+                                        <div style={{ height: '20rem', width: '100%' }}>
+                                            <GoogleMapReact
+                                                bootstrapURLKeys={{ key: 'AIzaSyA4E6nhEcx84do3Lr7VhpimcRFc793lG4A' }}
+                                                defaultCenter={this.state.center}
+                                                defaultZoom={this.state.zoom}
+                                            >
+                                                <FontAwesomeIcon
+                                                    icon={faMapMarker}
+                                                    size="3x"
+                                                    color="#17a2b8"
+                                                    lat={this.props.location.latitude.replace(',', '.')}
+                                                    lng={this.props.location.longitude.replace(',', '.')}
+                                                    text={this.props.title}
+                                                />
+                                            </GoogleMapReact>
+                                        </div>
                                     </Card.Text>
                                 </Card.Body>
                             </Card>
