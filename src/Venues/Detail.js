@@ -26,6 +26,7 @@ class Detail extends Component {
                 <img
                     className="d-block w-100"
                     src={image.url}
+                    alt=""
                 />
             </Carousel.Item>
         );
