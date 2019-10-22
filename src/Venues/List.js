@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { Table } from 'react-bootstrap';
+import moment from 'moment';
+
 import Detail from './Detail';
 import Multiselect from '../Filters/Multiselect';
 import Text from '../Filters/Text';
+import Dateselect from '../Filters/Dateselect';
 
 class List extends Component {
     state = {
@@ -11,7 +14,9 @@ class List extends Component {
         filterCity: [],
         postcodes: [],
         filterPostcode: [],
-        filterName: ''
+        filterName: '',
+        filterDateFrom: '',
+        filterDateTo: ''
     }
 
     componentDidMount() {
@@ -33,7 +38,10 @@ class List extends Component {
             }
         });
 
-        this.setState({ venues: venues, cities: cities, postcodes: postcodes });
+        let sortedCities = cities.sort((a, b) => a.value.localeCompare(b.value));
+        let sortedPostcodes = postcodes.sort((a, b) => a.value.localeCompare(b.value));
+
+        this.setState({ venues: venues, cities: sortedCities, postcodes: sortedPostcodes });
     }
 
     handleFilterCity = (city) => {
@@ -46,6 +54,14 @@ class List extends Component {
 
     handleFilterName = (name) => {
         this.setState({ filterName: name });
+    }
+
+    handleFilterFrom = (from) => {
+        this.setState({ filterDateFrom: from });
+    }
+
+    handleFilterTo = (to) => {
+        this.setState({ filterDateTo: to });
     }
 
     render() {
@@ -89,8 +105,27 @@ class List extends Component {
                 }
             }
 
-            if (this.state.filterName && this.state.filterName.length !== '') {
+            //names
+            if (this.state.filterName && this.state.filterName.length > 0) {
                 if (!venue.title.toUpperCase().includes(this.state.filterName.toUpperCase())) {
+                    addVenue = false;
+                }
+            }
+
+            //dates
+            if (this.state.filterDateFrom && this.state.filterDateFrom.length > 0) {
+                if (moment(venue.dates.startdate, "DD-MM-YYYY").isBefore(moment(this.state.filterDateFrom, "DD-MM-YYYY"))) {
+                    addVenue = false;
+                }
+                if (!venue.dates.startdate) {
+                    addVenue = false;
+                }
+            }
+            if (this.state.filterDateTo && this.state.filterDateTo.length > 0) {
+                if (moment(venue.dates.startdate, "DD-MM-YYYY").isAfter(moment(this.state.filterDateTo, "DD-MM-YYYY"))) {
+                    addVenue = false;
+                }
+                if (!venue.dates.startdate) {
                     addVenue = false;
                 }
             }
@@ -119,7 +154,7 @@ class List extends Component {
         );
 
         return (
-            <Table striped bordered hover size="sm">
+            <Table striped bordered hover size="sm" className="venues">
                 <thead>
                     <tr>
                         <th>
@@ -143,7 +178,10 @@ class List extends Component {
                             />
                         </th>
                         <th>Address</th>
-                        <th>Start Year</th>
+                        <th>
+                            Start Date
+                            <Dateselect setFilterFrom={this.handleFilterFrom} setFilterTo={this.handleFilterTo} />
+                        </th>
                         <th>Tools</th>
                     </tr>
                 </thead>

@@ -10,6 +10,45 @@
         margin-bottom: .25rem;
     }
 
+    .hide {
+        display: none;
+    }
+
+    .filter-date {
+        .label {
+            width: 4rem;
+            display: inline-block;
+        }
+
+        position: relative;
+
+        .close {
+            position: absolute;
+            right: 2rem;
+            top: 2.2rem;
+            width: 0;
+            height: 0;
+            opacity: 0.3;
+          }
+          .close:hover {
+            opacity: 1;
+          }
+          .close:before, .close:after {
+            position: absolute;
+            left: 1rem;
+            content: ' ';
+            height: 1rem;
+            width: 2px;
+            background-color: #333;
+          }
+          .close:before {
+            transform: rotate(45deg);
+          }
+          .close:after {
+            transform: rotate(-45deg);
+          }
+    }
+
     .FilteredMultiSelect__filter, .FilteredMultiSelect__select, input {
         display: block;
         width: 100%;
