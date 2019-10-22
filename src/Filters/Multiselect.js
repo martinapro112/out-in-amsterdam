@@ -4,28 +4,28 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilter } from '@fortawesome/free-solid-svg-icons';
 import FilteredMultiSelect from 'react-filtered-multiselect';
 
-class CityFilter extends Component {
+class Multiselect extends Component {
     state = {
-        showFilterCity: false,
+        showFilter: false,
         selected: []
     }
 
     handleShow = () => {
-        this.setState({ showFilterCity: true });
+        this.setState({ showFilter: true });
     }
 
     handleHide = () => {
-        this.setState({ showFilterCity: false });
+        this.setState({ showFilter: false });
     }
 
     handleAccept = () => {
-        this.setState({ showFilterCity: false }, () => {
+        this.setState({ showFilter: false }, () => {
             this.props.setFilter(this.state.selected);
         }); 
     }
 
     handleRemove = () => {
-        this.setState({ showFilterCity: false, selected: [] }, () => {
+        this.setState({ showFilter: false, selected: [] }, () => {
             this.props.setFilter([]);
         }); 
     }
@@ -51,24 +51,24 @@ class CityFilter extends Component {
             <div className="filter">
                 <FontAwesomeIcon icon={faFilter} onClick={this.handleShow} />
     
-                <Modal show={this.state.showFilterCity} onHide={this.handleHide}>
+                <Modal show={this.state.showFilter} onHide={this.handleHide}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Filter by City</Modal.Title>
+                        <Modal.Title>{this.props.title}</Modal.Title>
                     </Modal.Header>
                     <Modal.Body className="container filter">
                         <FilteredMultiSelect
                             onChange={this.handleSelect}
-                            options={this.props.cities}
+                            options={this.props.values}
                             textProp="value"
                             valueProp="value"
                         />
                         <br />
                         {
                             this.state.selected.length > 0 ?
-                            this.state.selected.map((city, i) => 
-                                <div className="selected">
+                            this.state.selected.map((item, i) => 
+                                <div className="selected" key={item}>
                                     <Button variant="secondary" onClick={() => this.handleDeselect(i)}>
-                                        {city.value} &times;
+                                        {item.value} &times;
                                     </Button>
                                 </div>
                             )
@@ -93,4 +93,4 @@ class CityFilter extends Component {
     }
 }
 
-export default CityFilter;
+export default Multiselect;
